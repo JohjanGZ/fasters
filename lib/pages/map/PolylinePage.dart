@@ -1,59 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:polyline_builder/polyline_builder.dart';
+import 'package:polyline/polyline.dart';
 
-class PolylineBuilderDemo extends StatefulWidget {
+class PolyLine extends StatefulWidget {
   @override
-  _PolylineBuilderDemoState createState() => _PolylineBuilderDemoState();
+  _PolyLine createState() => _PolyLine();
 }
 
-class _PolylineBuilderDemoState extends State<PolylineBuilderDemo> {
-  final _initialPosition = const CameraPosition(
-    target: LatLng(18.4844, -69.9242),
-    zoom: 12.63242053,
-  );
-
-  GoogleMapController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    PolylineBuilder.MAPBOX_ACCESS_TOKEN =
-        "pk.eyJ1Ijoic3VhcmV6ZHN6IiwiYSI6ImNrcXBuNHgzazE4czYycHBxbDJkZjRkYmYifQ.3o54WARdIacyOXJkxIfVwg";
-  }
-
+class _PolyLine extends State<PolyLine> {
   @override
   Widget build(BuildContext context) => Builder(
         builder: (context) => Scaffold(
-          body: PolylineBuilder(
-            polylineFitPadding: 20,
-            builder: (polylines, distance, duration, geometry) {
-              try {
-                print('Distance(m): $distance');
-                print('Duration(s): $duration');
-                print('Geometry(s): $geometry');
-              } catch (e) {}
-
-              return GoogleMap(
-                  mapType: MapType.normal,
-                  initialCameraPosition: _initialPosition,
-                  polylines: polylines,
-                  onMapCreated: (controller) =>
-                      setState(() => this.controller = controller));
+            body: Center(
+          child: TextButton(
+            style: TextButton.styleFrom(
+              primary: Colors.blue,
+              onSurface: Colors.red,
+            ),
+            onPressed: () {
+              _RunPolyLine();
             },
-
-            /// Use polylinesGeometry or locations
-            polylinesGeometry:
-                'enxfb@hslmdCaQvu@g_BgAei@at@t`ATlJd~Ayz@vSzXwv@t{A`F~Xtp@of@~Usb@{sByqDokWsi@mfQkrBwbJxtAopJpfA_dc@dq@ot@roHwl@lOobGvDuaD}gDarH}]y`DwuEisEuZuuDilF}xJdk@k~Or@gG`Rih@dkCzVzyElFnt@xbDyu@f_@|j@piBkhQ~eAepJcYkiKy~BsoCfuBo`BuTsfIi|MuIaoJm|Vyu@kvG{{EiuCe_@qyDpsAccBqFsvFwzBkgAmhDkxBv{@g{AyvAom^bt@kpWu|N_aDkVezJhu@',
-            locations: [
-              LatLng(18.47790717495005, -69.96671598404646),
-              LatLng(18.483361274620748, -69.87782824784517),
-              LatLng(18.579517508133268, -69.8544293269515),
-            ],
-            // Used to fit polyline on map camera
-            controller: this.controller,
+            child: Text('PolyLine'),
           ),
-        ),
+        )),
       );
+
+  void _RunPolyLine() {
+    Polyline polyline;
+
+    /// List<List<double> coordinates;
+    const coordinates = [
+      [33.80119, -84.34788],
+      [35.10566, -80.8762],
+      [30.4526, -81.71116],
+      [28.57888, -81.2717]
+    ];
+    const precision = 5;
+    const encoded = 'mxhmEfeyaO}w}F_aeTrxk[nabDv}lJsytA';
+
+    // Encode a list of coordinates with precision 5 to produce the encoded string
+    polyline = Polyline.Encode(decodedCoords: coordinates, precision: 5);
+    print(
+        'Encoded String: ${polyline.encodedString}, Coords: ${polyline.decodedCoords}');
+
+    // Decode an encoded string to a list of coordinates
+    polyline = Polyline.Decode(encodedString: encoded, precision: precision);
+    print('Decoded Coords: ${polyline.decodedCoords}');
+    print('String: ${polyline.encodedString}');
+
+    // Calculate the distance of an encoded polyline, and decode the polyline
+    polyline = Polyline.Distance(encodedString: encoded, unit: 'kilometers');
+    // By calling  length the encodedString, decodedCoords, and distance variables
+    // of the Polyline class are available
+    print(
+        'Distance: ${polyline.distance.floor()}km , Encoded String: ${polyline.encodedString} Decoded Coords: ${polyline.decodedCoords}');
+  }
 }

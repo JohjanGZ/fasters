@@ -1,5 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+
+import 'dart:io';
+import 'dart:math';
 
 class MapPage extends StatefulWidget {
   @override
@@ -31,6 +36,7 @@ class _MapPage extends State<MapPage> {
               accessToken:
                   'pk.eyJ1Ijoic3VhcmV6ZHN6IiwiYSI6ImNrcXBuNHgzazE4czYycHBxbDJkZjRkYmYifQ.3o54WARdIacyOXJkxIfVwg',
               onMapCreated: _onMapCreated,
+              onMapLongClick: _onMapLongClickCallback,
               onStyleLoadedCallback: () => addCircle(mapController),
               initialCameraPosition:
                   const CameraPosition(target: LatLng(8.353311, -62.680403)),
@@ -42,8 +48,6 @@ class _MapPage extends State<MapPage> {
   }
 
   void addCircle(MapboxMapController mapBoxController) {
-    mapBoxController.addSymbol(SymbolOptions(
-        geometry: LatLng(8.366244, -62.644979), iconImage: "airport-15"));
     mapBoxController.addLine(
       LineOptions(
         geometry: [
@@ -55,5 +59,11 @@ class _MapPage extends State<MapPage> {
         lineOpacity: 0.5,
       ),
     );
+  }
+
+  void _onMapLongClickCallback(Point<double> point, LatLng coordinates) {
+    print(coordinates);
+    mapController.addSymbol(
+        SymbolOptions(geometry: coordinates, iconImage: "airport-15"));
   }
 }

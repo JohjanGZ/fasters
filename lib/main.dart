@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 //page
-import './pages/map/MapBoxPage.dart';
+import './pages/map/MapPage.dart';
+
+//page - test
+import './pages/map/PolylinePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MapBoxPage(),
+      home: MapPage(),
     );
   }
 }
