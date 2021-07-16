@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:polyline/polyline.dart';
+import 'package:polyline_decoded_kur/polyline.dart';
 
 class PolyLine extends StatefulWidget {
   @override
@@ -29,13 +29,21 @@ class _PolyLine extends State<PolyLine> {
 
     /// List<List<double> coordinates;
     const coordinates = [
-      [33.80119, -84.34788],
-      [35.10566, -80.8762],
-      [30.4526, -81.71116],
-      [28.57888, -81.2717]
+      [8.35290, -62.68106],
+      [8.36957, -62.66130]
     ];
     const precision = 5;
-    const encoded = 'mxhmEfeyaO}w}F_aeTrxk[nabDv}lJsytA';
+
+    polyline = Polyline.Encode(decodedCoords: coordinates, precision: 5);
+
+    print('Encoded coords:  ${polyline.encodedString}');
+
+    String encoded = polyline.encodedString;
+    polyline = Polyline.Decode(encodedString: encoded, precision: precision);
+    polyline = Polyline.Distance(encodedString: encoded, unit: 'kilometers');
+    print(
+        'Distance: ${polyline.distance.floor()}km , Encoded String: ${polyline.encodedString} Decoded Coords: ${polyline.decodedCoords}');
+    /*  const encoded = 'mxhmEfeyaO}w}F_aeTrxk[nabDv}lJsytA';
 
     // Encode a list of coordinates with precision 5 to produce the encoded string
     polyline = Polyline.Encode(decodedCoords: coordinates, precision: 5);
@@ -52,6 +60,6 @@ class _PolyLine extends State<PolyLine> {
     // By calling  length the encodedString, decodedCoords, and distance variables
     // of the Polyline class are available
     print(
-        'Distance: ${polyline.distance.floor()}km , Encoded String: ${polyline.encodedString} Decoded Coords: ${polyline.decodedCoords}');
+        'Distance: ${polyline.distance.floor()}km , Encoded String: ${polyline.encodedString} Decoded Coords: ${polyline.decodedCoords}');*/
   }
 }

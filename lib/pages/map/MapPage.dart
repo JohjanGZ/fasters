@@ -1,3 +1,4 @@
+import 'package:fasters/pages/map/MapSearchPage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,24 +28,28 @@ class _MapPage extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: 1000,
-            height: 500,
-            child: MapboxMap(
-              accessToken:
-                  'pk.eyJ1Ijoic3VhcmV6ZHN6IiwiYSI6ImNrcXBuNHgzazE4czYycHBxbDJkZjRkYmYifQ.3o54WARdIacyOXJkxIfVwg',
-              onMapCreated: _onMapCreated,
-              onMapLongClick: _onMapLongClickCallback,
-              onStyleLoadedCallback: () => addCircle(mapController),
-              initialCameraPosition:
-                  const CameraPosition(target: LatLng(8.353311, -62.680403)),
-            ),
-          )
-        ],
-      ),
-    );
+        body: Row(
+      children: [
+        Expanded(
+            flex: 1,
+            child: Column(
+              children: [MapSearchPage()],
+            )),
+        Expanded(
+            flex: 3,
+            child: Container(
+              child: MapboxMap(
+                accessToken:
+                    'pk.eyJ1Ijoic3VhcmV6ZHN6IiwiYSI6ImNrcXBuNHgzazE4czYycHBxbDJkZjRkYmYifQ.3o54WARdIacyOXJkxIfVwg',
+                onMapCreated: _onMapCreated,
+                onMapLongClick: _onMapLongClickCallback,
+                onStyleLoadedCallback: () => addCircle(mapController),
+                initialCameraPosition:
+                    const CameraPosition(target: LatLng(8.353311, -62.680403)),
+              ),
+            )),
+      ],
+    ));
   }
 
   void addCircle(MapboxMapController mapBoxController) {
