@@ -8,6 +8,7 @@ import './pages/map/PolylinePage.dart';
 import './pages/map/LocationPage.dart';
 import './pages/map/MapSearchPage.dart';
 import './pages/map/GeoDistancyPage.dart';
+import './pages/map/DirectionsMapPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: GeoDistancyPage(),
+      home: MapPage(),
     );
   }
 }

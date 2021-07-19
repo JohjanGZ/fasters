@@ -212,6 +212,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
+  mapbox_api:
+    dependency: "direct main"
+    description:
+      name: mapbox_api
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   mapbox_gl:
     dependency: "direct main"
     description:
@@ -303,13 +310,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.10"
-  polyline_decoded_kur:
-    dependency: "direct main"
-    description:
-      name: polyline_decoded_kur
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   positioned_tap_detector_2:
     dependency: transitive
     description:

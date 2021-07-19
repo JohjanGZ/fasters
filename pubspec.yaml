@@ -34,11 +34,11 @@ dependencies:
   polyline_builder: ^0.0.10
 
   flutter_mapbox_autocomplete: ^2.0.0
-  polyline_decoded_kur: ^2.0.0
   google_polyline_algorithm: ^3.1.0
   flutter_polyline_points: ^1.0.0
   location: ^2.5.4
   vector_math: ^2.1.0
+  mapbox_api: ^1.0.0
 
 
 dev_dependencies:
